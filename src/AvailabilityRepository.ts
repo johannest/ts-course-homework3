@@ -23,7 +23,7 @@ export class AvailabilityRepository {
 
     async fetchAvailability(product: Product): Promise<AvailabilityData> {
         if (!this.cache[product.manufacturer]) {
-            this.cache[product.manufacturer] = fetchJSON(`${availabilityApiUrl}/${product.manufacturer}`)
+            this.cache[product.manufacturer] = fetchJSON<AvailabilityData>(`${availabilityApiUrl}/${product.manufacturer}`,AvailabilityDataCodec);
         }
         return this.cache[product.manufacturer]
     }

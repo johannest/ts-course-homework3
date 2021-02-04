@@ -1,6 +1,6 @@
 import * as t from 'io-ts';
 
-const ProductCodec = t.type({
+export const ProductCodec = t.type({
     id: t.string,
     name: t.string,
     type: t.string,

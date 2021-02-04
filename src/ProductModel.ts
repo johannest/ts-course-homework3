@@ -1,4 +1,5 @@
-import {Product} from "./Product"
+import * as t from 'io-ts';
+import {Product,ProductCodec} from "./Product"
 import {UIState} from "./UIState";
 import {fetchJSON} from "./index"
 
@@ -18,7 +19,7 @@ export class ProductModel {
 
     async fetchProducts(category: string): Promise<Product[]> {
         if (!this.cache[category]) {
-            this.cache[category] = fetchJSON(`${productsApiUrl}/${category}`)
+            this.cache[category] = fetchJSON<Product[]>(`${productsApiUrl}/${category}`,t.array(ProductCodec))
         }
         return this.cache[category]
     }
