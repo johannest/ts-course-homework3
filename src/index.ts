@@ -1,7 +1,4 @@
-
-import * as t from 'io-ts';
-import * as Either from "fp-ts/lib/Either"
-import {PathReporter} from 'io-ts/PathReporter'
+import * as t from './my-own-validation'
 import {UIState} from "./UIState";
 import {ProductModel} from "./ProductModel";
 import {ProductView} from "./ProductView";
@@ -53,19 +50,13 @@ function addPagingButtonToDocument(caption: string, increment: boolean, productM
     document.body.appendChild(button);
 }
 
-export async function fetchJSON<T>(url: string, codec: t.Type<T>): Promise<T> { 
+export async function fetchJSON<T>(url: string, validator: t.Validator<T>): Promise<T> { 
     const response = await fetch(url);
     if (response.status !== 200) {
         throw Error("Error when fetching the data!");
     }
     const json = await response.json();
-    const result = codec.decode(json);
-
-    if (Either.isRight(result)) {
-        return result.right;
-    } else {
-        throw Error(PathReporter.report(result).join("\n"));
-    }
+    return validator(json)
 }
 
 main();

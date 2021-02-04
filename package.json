@@ -9,8 +9,6 @@
         "watch:tsc": "tsc --watch --noEmit"
     },
     "dependencies": {
-        "fp-ts": "^2.9.3",
-        "io-ts": "^2.2.13",
         "lodash": "^4.17.20"
     },
     "devDependencies": {

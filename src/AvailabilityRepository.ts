@@ -1,4 +1,4 @@
-import * as t from 'io-ts';
+import * as t from "./my-own-validation";
 import {Availability, AvailabilityCodec} from "./Availability";
 import {Product} from "./Product"
 import {fetchJSON} from "./index"
@@ -7,12 +7,12 @@ const availabilityApiUrl = "https://bad-api-assignment.reaktor.com/availability"
 
 type AvailabilityMap = Record<string, Promise<AvailabilityData>>;
 
-const AvailabilityDataCodec = t.type({
+const AvailabilityDataCodec = t.object({
     code: t.number,
     response: t.array(AvailabilityCodec)
-}, "AvailabilityData")
+})
 
-type AvailabilityData = t.TypeOf<typeof AvailabilityDataCodec>
+type AvailabilityData = ReturnType<typeof  AvailabilityDataCodec>
 
 export class AvailabilityRepository {
 

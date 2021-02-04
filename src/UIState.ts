@@ -1,8 +1,8 @@
-import * as t from 'io-ts';
+import * as t from "./my-own-validation";
 
-const UIStateCodec = t.type({
+const UIStateCodec = t.object({
     currentPage: t.number,
     currentCategory: t.string
-}, "UIState")
+})
 
-export type UIState = t.TypeOf<typeof UIStateCodec>
+export type UIState = ReturnType<typeof UIStateCodec>

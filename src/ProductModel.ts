@@ -1,4 +1,4 @@
-import * as t from 'io-ts';
+import * as t from "./my-own-validation";
 import {Product,ProductCodec} from "./Product"
 import {UIState} from "./UIState";
 import {fetchJSON} from "./index"

@@ -1,11 +1,11 @@
-import * as t from 'io-ts';
+import * as t from "./my-own-validation";
 
-export const ProductCodec = t.type({
+export const ProductCodec = t.object({
     id: t.string,
     name: t.string,
     type: t.string,
     manufacturer: t.string,
     price: t.number
-}, "Product");
+});
 
-export type Product = t.TypeOf<typeof ProductCodec>
+export type Product = ReturnType<typeof ProductCodec>

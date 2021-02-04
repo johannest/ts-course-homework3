@@ -1,8 +1,8 @@
-import * as t from 'io-ts';
+import * as t from "./my-own-validation";
 
-export const AvailabilityCodec = t.type({
+export const AvailabilityCodec = t.object({
     id: t.string,
     DATAPAYLOAD: t.string
-}, "Availability")
+})
 
-export type Availability = t.TypeOf<typeof AvailabilityCodec>
+export type Availability = ReturnType<typeof AvailabilityCodec>
