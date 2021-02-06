@@ -22,7 +22,8 @@ export class ProductView {
         for (let name of ['Type','Name','Price','Availability']) {
             this.createAndAppendDiv(this.productListContainer, name).classList.add("header");    
         }
-    
+        
+        const manufacturers = [];
         const availabilityDivs: AvailabilityDivMap = {};
         productsList.forEach(prod => {
             this.createAndAppendDiv(this.productListContainer, prod.type);
@@ -32,8 +33,11 @@ export class ProductView {
             availabilityDivs[prod.id] = this.createAndAppendDiv(this.productListContainer, "loading...");
         });
         
+        // fetch availabilities sequentially
+        await Promise.all(productsList.map(product => this.availabilityRepository.fetchAvailability(product)));
+
         for (let product of productsList) {
-            availabilityDivs[product.id].textContent = await this.availabilityRepository.getAvailabilityIndicator(product);
+            availabilityDivs[product.id].textContent = (await this.availabilityRepository.getAvailabilityIndicator(product)).textContent;
         }      
     }
 

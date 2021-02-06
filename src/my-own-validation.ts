@@ -15,6 +15,13 @@ export function boolean(input: any) {
     return input as boolean
 }
 
+export function element<T>(elemValidator: Validator<T>) {
+    return (input: any) => {
+        if (!(input instanceof Element)) throw Error("Not an element: "+input)
+        return elemValidator(input);
+    }
+}
+
 export function array<T>(elemValidator: Validator<T>) {
     return (input: any) => {
         if (!(input instanceof Array)) throw Error("Not an array: " + input)
